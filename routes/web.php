@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\controllers\StudentController;
-use App\Http\controllers\StudentsController;
+use App\Http\Controllers\Alumnos\StudentController;
+use App\Http\Controllers\Alumnos\AlumnosController;
+use App\Http\Controllers\SubjectController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,14 +18,29 @@ use App\Http\controllers\StudentsController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('/', function () {
-//     return view('hola');
-// });
- Route::get('/alumnos',[StudentsController::class,'index'])->name('alumnos.index');
-Route::resource('student', StudentController::class);;
-Route::get('estudiantes',[StudentsController::class,'create'])->name('estudiantes.create');
-Route::post('/alumnos',[StudentsController::class,'store']);
+Route::resource('Unidades', SubjectController::class);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/alumnos', [AlumnosController::class, 'store'])->name('Alumnos.store');
+    Route::get('/alumnos', [AlumnosController::class, 'index'])->name('Alumnos.index');
+    Route::get('/alumnos', [AlumnosController::class, 'show'])->name('Alumnos.show');
+    Route::put('/alumnos', [AlumnosController::class, 'update'])->name('Alumnos.update');
+    Route::get('/estudiantes', [AlumnosController::class, 'create'])->name('Alumnos.create');
+    
+});
+
+require __DIR__.'/auth.php';
+
+
+Route::resource('/Alumnos', AlumnosController::class);

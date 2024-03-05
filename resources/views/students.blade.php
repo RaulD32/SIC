@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($students as $student)
+            @foreach ($Students as $student)
             <tr>
                 <td>{{ $student->id_student }}</td>
                 <td>{{ $student->name_student }}</td>
@@ -22,6 +22,18 @@
             @endforeach
         </tbody>
     </table>
+<<<<<<< HEAD
 </div>
 
 @endsection
+=======
+    {{-- ({$Students->links()}) --}}
+</div>
+
+
+@endsection
+
+
+
+
+>>>>>>> raul

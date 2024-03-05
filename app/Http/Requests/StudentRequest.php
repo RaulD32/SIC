@@ -22,9 +22,9 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_student'=>'bail|required|alpha',
-            'email_student'=>'bail|required|email',
-            'password_student'=>'bail|required|between:4,10'
+            'name_student'=>'bail|required|string|max:255',
+            // 'email_student'=>'bail|required|email',
+            // 'password_student'=>'bail|required|between:4,10'
             //
         ];
     }
